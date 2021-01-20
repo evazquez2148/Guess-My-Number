@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="../css/main.css" />
     <title>Document</title>
   </head>
+  <style>
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  </style>
   <body>
     <header>
       <h1>Guess My Number</h1>
@@ -16,7 +26,7 @@
     </header>
     <main>
       <section class="left">
-        <input type="number" class="guess" />
+        <input type="number" min="1" max="20" class="guess" />
         <button class="btn check">Check!</button>
       </section>
       <section class="right">

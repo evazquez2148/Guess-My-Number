@@ -1,5 +1,8 @@
 'use strict';
 
+//Stops game from running
+let playing = true;
+
 //Generates Random number from 1 to 20
 let randomNumber = function () {
   return Math.trunc(Math.random() * 20 + 1);
@@ -23,9 +26,9 @@ const restoreNumber = function (value) {
 //Random number generator
 
 // Allows check button to function
+
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
-  console.log(guess, typeof guess);
 
   //Allows to restart the game
   document.querySelector('.again').addEventListener('click', function () {
@@ -40,15 +43,19 @@ document.querySelector('.check').addEventListener('click', function () {
     displayMessage('Start guessing...');
 
     document.querySelector('body').style.backgroundColor = '#222';
-    document.querySelector('.guess').value = ' ';
+    document.querySelector('.guess').value = '';
 
     document.querySelector('.highscore').textContent = highScore;
   });
 
   //Verify if no number was added to box
+
   if (!guess) {
     displayMessage('🤬 There is no number!');
+  } else if (guess <= 0 || guess >= 20) {
+    displayMessage('This number is not valid, Please stay between 0 to 20.');
   }
+
   //Results when answer matches the Secret Number
   else if (guess === secretNumber) {
     displayMessage('🥳 Correct Number!');
@@ -63,6 +70,7 @@ document.querySelector('.check').addEventListener('click', function () {
       highScore = score;
       document.querySelector('.highscore').textContent = highScore;
     }
+    playing = false;
     // Results when answer is highier or lower than the Secret Number
   } else if (guess !== secretNumber) {
     if (score > 1) {
@@ -79,6 +87,7 @@ document.querySelector('.check').addEventListener('click', function () {
     else {
       displayMessage('💢 You lost game!');
       restoreNumber(0);
+      playing = false;
     }
   }
 });
